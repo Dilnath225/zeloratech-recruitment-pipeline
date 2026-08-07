@@ -48,3 +48,42 @@ exports.addCandidate = async (req, res) => {
 
 }
 };
+
+//PUT : update the details of new candidate in the database
+exports.updateCandidate = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, application_stage, overall_score, referral_status, assessment_status } = req.body;
+
+        const query = `
+
+            UPDATE candidates
+            SET name = COALESCE($1, name),
+                application_stage = COALESCE($2, application_stage),
+                overall_score = COALESCE($3, overall_score),
+                referral_status = COALESCE($4, referral_status),
+                assessment_status = COALESCE($5, assessment_status)
+            WHERE id = $6
+            RETURNING *;
+        `;
+        const values = [
+            name,
+            application_stage,
+            overall_score,
+            referral_status,
+            assessment_status,
+            id
+        ];
+        const values = [name, application_stage, overall_score, referral_status, assessment_status, id];
+        const updated = await db.query(query, values);
+        if (updated.rows.length === 0) {
+            return res.status(404).json({ error: 'Candidate not found' });
+        }
+        res.json({ message: 'Candidate updated successfully', candidate: updated.rows[0] });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+};
+
+//to delete a
