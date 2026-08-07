@@ -34,3 +34,8 @@ const initDB =  async() => {
         console.error("Error creating candidates table:", err);
     }
 }
+
+module.exports = {
+    query: (text, params) => pool.query(text, params),
+    initDB,
+};
