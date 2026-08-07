@@ -74,7 +74,7 @@ exports.updateCandidate = async (req, res) => {
             assessment_status,
             id
         ];
-        const values = [name, application_stage, overall_score, referral_status, assessment_status, id];
+        const updateValues = [name, application_stage, overall_score, referral_status, assessment_status, id];
         const updated = await db.query(query, values);
         if (updated.rows.length === 0) {
             return res.status(404).json({ error: 'Candidate not found' });
