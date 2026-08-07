@@ -23,11 +23,11 @@ exports.getCandidates = async (req, res) => {
 //add a new candidate to the database
 exports.addCandidate = async (req, res) => {
     try {
-    const { name, application_stage, overall_score, referral_status, assessment_status } = req.body;
+    const { name, application_stage, application_date, overall_score, referral_status, assessment_status } = req.body;
 
     const query = `
-        INSERT INTO candidates (name, application_stage, overall_score, referral_status, assessment_status)
-        VALUES ($1, $2,COALESCE($3,CURRENT_DATE), $4, $5)
+        INSERT INTO candidates (name, application_stage, application_date, overall_score, referral_status, assessment_status)
+        VALUES ($1, $2, COALESCE($3, CURRENT_DATE), $4, $5, $6)
         RETURNING *;
     `;
     

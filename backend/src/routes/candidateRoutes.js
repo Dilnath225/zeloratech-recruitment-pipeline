@@ -4,10 +4,10 @@ const candidateController = require('../controllers/candidatecontroller');
 
 // connected the routes to the controller functions
 
-router.get('/candidates', candidateController.getCandidates);
-router.post('/candidates', candidateController.addCandidate);
-router.put('/candidates/:id', candidateController.updateCandidate);
-router.delete('/candidates/:id', candidateController.deleteCandidate);
+router.get('/', candidateController.getCandidates);
+router.post('/', candidateController.addCandidate);
+router.put('/:id', candidateController.updateCandidate);
+router.delete('/:id', candidateController.deleteCandidate);
 
 module.exports = router;
 
