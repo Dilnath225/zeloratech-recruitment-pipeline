@@ -86,4 +86,17 @@ exports.updateCandidate = async (req, res) => {
     }
 };
 
-//to delete a
+//to delete a candidate from the database
+exports.deleteCandidate = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await db.query('DELETE FROM candidates WHERE id = $1 RETURNING *', [id]);
+        if (deleted.rows.length === 0) {
+            return res.status(404).json({ error: 'Candidate not found' });
+        }
+        res.json({ message: 'Candidate deleted successfully', candidate: deleted.rows[0] });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server Error' });
+    }
+};  
