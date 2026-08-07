@@ -1,12 +1,12 @@
-const { pool} =  require('pg');
+const { Pool} =  require('pg');
 
 //add the postgresql db connection pool configuration
 
-const pol = new pool({
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'recruitment_db',
-    password: 'secrest',
+    password: 'secret',
     port: 5432,
 });
 
@@ -20,8 +20,8 @@ const initDB =  async() => {
         application_stage VARCHAR(50) DEFAULT 'Applying Period',
         application_date DATE DEFAULT CURRENT_DATE,
         overall_score INT DEFAULT 0,
-        referral_status VARCHAR 10 DEFAULT 'No',
-        assessment_status VARCHAR 20 DEFAULT 'Pending',
+        referral_status VARCHAR(10) DEFAULT 'No',
+        assessment_status VARCHAR(20) DEFAULT 'Pending'
 
 );
     `;
